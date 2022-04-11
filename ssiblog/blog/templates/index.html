@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Mechanical Keyboard Blog {% endblock %}
+{% block body %}
+{% for post in posts %}
+<div class="card mb-3">
+    <div class="card-body container">
+        <div class="row">
+            <div class="col-md-3">
+                 <a href="https://placeholder.com"><img src="http://via.placeholder.com/150" class="img-thumbnail " alt="{{post.title}}"></a>
+            </div>
+            <div class="col-md-6">
+                <h2 class="card-title h5">
+                    <a href="{{post.get_absolute_url}}">
+                        {{post.title}}
+                    </a>
+                </h2>
+                <div class="text_muted">
+                    <small>
+                        Opublikowano: {{post.dateOfPublish.date}} by <b>{{post.author}}</b>
+                    </small>
+                </div>
+                <p class="card-text mb-auto py-2">{{post.body|safe|striptags|truncatechars:100}}</p>
+                <div>
+                    <a href="{{post.get_absolute_url}}" class="btn btn-primary btn-sm">Więcej</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}
