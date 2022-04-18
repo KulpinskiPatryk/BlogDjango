@@ -1,18 +1,18 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
+from tinymce import models as tm_models
+from taggit.managers import TaggableManager
 
 
 class Post(models.Model):
-
     title = models.CharField(max_length=150)
-    slug = models.SlugField(max_length=150, unique_for_date='dateOfPublish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = models.TextField()
-
+    slug = models.SlugField(max_length=150, blank=True, unique_for_date='dateOfPublish')
+    body = tm_models.HTMLField()
+    image = models.ImageField(upload_to='images/', null=False,blank=False)
     dateOfPublish = models.DateTimeField(default=timezone.now)
-    dateOfCreated = models.DateTimeField(auto_now_add=True)
-    dateOfUpdated = models.DateTimeField(auto_now=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-dateOfPublish']
@@ -20,5 +20,21 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('blog:singlePost', args=[self.slug])
+
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.CharField(max_length=50, default='Anonymous')
+    body = models.TextField()
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return self.body
 
 # Create your models here.

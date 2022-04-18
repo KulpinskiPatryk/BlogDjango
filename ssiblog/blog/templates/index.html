@@ -2,12 +2,17 @@
 {% load static %}
 {% block title %} Mechanical Keyboard Blog {% endblock %}
 {% block body %}
+{% if tag %}
+        <h2 class="mb-3">Posts tagged with "{{ tag.name }}"</h2>
+{% endif %}
 {% for post in posts %}
 <div class="card mb-3">
     <div class="card-body container">
         <div class="row">
             <div class="col-md-3">
-                 <a href="https://placeholder.com"><img src="http://via.placeholder.com/150" class="img-thumbnail " alt="{{post.title}}"></a>
+                {% if post.image.url %}
+                 <img src="{{post.image.url}}" class="img-thumbnail " alt="{{post.title}}">
+                {% endif %}
             </div>
             <div class="col-md-6">
                 <h2 class="card-title h5">
@@ -17,12 +22,14 @@
                 </h2>
                 <div class="text_muted">
                     <small>
-                        Opublikowano: {{post.dateOfPublish.date}} by <b>{{post.author}}</b>
+                        Opublikowano: {{post.dateOfPublish.date}}
                     </small>
                 </div>
                 <p class="card-text mb-auto py-2">{{post.body|safe|striptags|truncatechars:100}}</p>
                 <div>
                     <a href="{{post.get_absolute_url}}" class="btn btn-primary btn-sm">Więcej</a>
+                    <a href="edit/{{post.pk}}/" class="btn btn-warning btn-sm">Edytuj</a>
+                    <a href="delete/{{post.pk}}/" class="btn btn-Danger btn-sm">Usuń</a>
                 </div>
             </div>
         </div>
@@ -30,4 +37,26 @@
 </div>
 
 {% endfor %}
+
+{% if posts.has_other_pages %}
+  <ul class="pagination">
+    {% if posts.has_previous %}
+      <li><a href="?page={{ posts.previous_page_number }}" class="btn btn-dark">&laquo;</a></li>
+    {% else %}
+      <li class="disabled btn btn-dark"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in books.paginator.page_range %}
+      {% if posts.number == i %}
+        <li class="active btn btn-dark"><span>{{ i }} <span class="sr-only"></span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}" class="btn btn-dark">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if posts.has_next %}
+      <li><a href="?page={{ posts.next_page_number }}" class="btn btn-dark">&raquo;</a></li>
+    {% else %}
+      <li class="disabled btn btn-dark"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 {% endblock %}

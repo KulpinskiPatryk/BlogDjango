@@ -17,7 +17,7 @@
 
       <!-- Container wrapper -->
       <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
            <img src="{% static 'images/mk.png' %}" width="30" height="30" alt="">
           </a>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -31,6 +31,9 @@
               <a class="nav-link" href="#">Projects</a>
             </li>
           </ul>
+          {% if user.is_superuser %}
+          <button class="btn btn-outline-success my-2 my-sm-0" onclick="document.location='/addPost/'">Dodaj post</button>
+          {% endif %}
       </div>
       <!-- Container wrapper -->
     </nav>
