@@ -10,10 +10,78 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
-from .forms import CommentForm, addPostForm
+from .forms import CommentForm, addPostForm, contactForm
 from django.views.generic import UpdateView, DeleteView
 from taggit.models import Tag
+from ckeditor.widgets import CKEditorWidget
+from django import forms
 from django.core.files.storage import FileSystemStorage
+
+
+def ContactForm(request):
+    form = contactForm()
+    if request.method == 'POST':
+        form = contactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    return render(request, "contact.html", {'form': form})
+
+
+def approve(request, id):
+    id = beforeUser.objects.get(id=id)
+    username = id.userName
+    print(username)
+    emaiL = id.userEmail
+    password = id.userPassword
+    user = User.objects.create_user(username=username, email=emaiL, password=password)
+    user.save()
+    id.userActive = 1
+    id.save()
+    return redirect("/authorize/")
+
+
+def Register(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if password != confirm_password:
+            messages.error(request, 'Hasła się nie są identyczne')
+            return render(request, "register.html")
+        try:
+            new_user = beforeUser.objects.create(userName=username, userPassword=password, userEmail=email)
+            new_user.save()
+            return redirect(index())
+        except:
+            pass
+
+    return render(request, "register.html")
+
+
+def authorize(request):
+    users = beforeUser.objects.filter(userActive=0)
+    return render(request, 'authorize.html', {'users': users})
+
+
+def Logout(request):
+    logout(request)
+    return redirect("/")
+
+
+def Login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("/")
+
+    return render(request, "login.html")
 
 
 class deletePost(DeleteView):
@@ -22,8 +90,8 @@ class deletePost(DeleteView):
     success_url = "/"
 
 
-
 class updatePost(UpdateView):
+    body = forms.CharField(widget=CKEditorWidget())
     model = Post
     template_name = 'updatePost.html'
     fields = ['title', 'body', 'image', 'tags']
@@ -81,6 +149,6 @@ def index(request, tag_slug=None):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
-    return render(request, "index.html", {'posts': posts, 'tag': tag, })
+    return render(request, "index.html", {'posts': posts, 'tag': tag, 'page': page})
 
 # Create your views here.

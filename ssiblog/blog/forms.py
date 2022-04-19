@@ -1,16 +1,21 @@
 from django import forms
 from django.forms import TextInput
-from .models import Comments, Post
-from tinymce.widgets import TinyMCE
+from .models import Comments, Post, contactForm
+from captcha.fields import CaptchaField
+from ckeditor.widgets import CKEditorWidget
 
 
+class ContactForm(forms.ModelForm):
+    captcha = CaptchaField()
 
-class TinyMCEWidget(TinyMCE):
-    def use_required_attribute(self, *args):
-        return False
+    class Meta:
+        model = contactForm
+        fields = ['formEmail', 'formMessage']
 
 
 class CommentForm(forms.ModelForm):
+    captcha = CaptchaField()
+
     class Meta:
         model = Comments
         fields = ('body',)
@@ -23,7 +28,8 @@ class CommentForm(forms.ModelForm):
 
 
 class addPostForm(forms.ModelForm):
+    body = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Post
-        fields = ['title', 'slug', 'body', 'image', 'tags',]
-
+        fields = ['title', 'slug', 'body', 'image', 'tags', ]

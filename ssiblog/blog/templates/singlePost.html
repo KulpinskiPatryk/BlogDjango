@@ -22,7 +22,6 @@
             <a href="{% url 'blog:post_tag' tag.slug %}" class="link-light text-decoration-none badge bg-secondary">
                 {{tag.name}}
             </a>
-            <!-- {% if not forloop.last %}, {% endif %} -->
         {% endfor %}
     </p>
 
@@ -33,7 +32,7 @@
         <form method="post" action="">
             {% csrf_token %}
             {{ comment_form.body }}<br>
-            <button type="submit" class="btn btn-primary">Dodaj</button>
+            <button type="submit" class="btn btn-primary">Dodaj</button> {{ comment_form.captcha }}<br>
         </form>
 
         {% with comments.count as total_comments %}

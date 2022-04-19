@@ -6,6 +6,25 @@ from tinymce import models as tm_models
 from taggit.managers import TaggableManager
 
 
+class contactForm(models.Model):
+    formEmail = models.EmailField()
+    formMessage = models.TextField()
+
+    def __str__(self):
+        return self.formEmail + ' ' + self.formMessage
+
+
+class beforeUser(models.Model):
+    userName = models.TextField(unique=True)
+    userPassword = models.TextField()
+    userEmail = models.EmailField(unique=True)
+    userActive = models.IntegerField(default=0)
+
+
+    def __str__(self):
+        return self.Name + ' ' + self.userEmail + ' ' + self.userActive
+
+
 class Post(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, blank=True, unique_for_date='dateOfPublish')

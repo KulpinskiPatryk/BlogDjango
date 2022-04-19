@@ -22,18 +22,18 @@
           </a>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="#">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Team</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Projects</a>
+              <a class="nav-link" href="ContactForm">Formularz kontakowy</a>
             </li>
           </ul>
-          {% if user.is_superuser %}
-          <button class="btn btn-outline-success my-2 my-sm-0" onclick="document.location='/addPost/'">Dodaj post</button>
-          {% endif %}
+            {% if user.is_authenticated %}
+                <button class="btn btn-outline-info my-2 my-sm-0" onclick="document.location='/Logout/'">Zalogowany {{user}}</button>&nbsp;
+              {% else %}
+                <button class="btn btn-outline-info my-2 my-sm-0" onclick="document.location='/Login/'">Zaloguj</button>&nbsp;
+              {% endif %}
+              {% if user.is_superuser %}
+              <button class="btn btn-outline-dark my-2 my-sm-0" onclick="document.location='/authorize/'">Autoryzuj Użytkowników</button>&nbsp;
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="document.location='/addPost/'">Dodaj post</button>
+              {% endif %}
       </div>
       <!-- Container wrapper -->
     </nav>

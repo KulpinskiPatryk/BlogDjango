@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'blog',
     'tinymce',
     'taggit',
+    'captcha',
+    'ckeditor',
 
 ]
 
