@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
-from .forms import CommentForm, addPostForm, contactForm
+from .forms import CForm, addPostForm, CommentForm
 from django.views.generic import UpdateView, DeleteView
 from taggit.models import Tag
 from ckeditor.widgets import CKEditorWidget
@@ -19,9 +19,9 @@ from django.core.files.storage import FileSystemStorage
 
 
 def ContactForm(request):
-    form = contactForm()
+    form = CForm()
     if request.method == 'POST':
-        form = contactForm(request.POST)
+        form = CForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect("/")

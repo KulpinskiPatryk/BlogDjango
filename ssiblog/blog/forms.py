@@ -5,7 +5,7 @@ from captcha.fields import CaptchaField
 from ckeditor.widgets import CKEditorWidget
 
 
-class ContactForm(forms.ModelForm):
+class CForm(forms.ModelForm):
     captcha = CaptchaField()
 
     class Meta:

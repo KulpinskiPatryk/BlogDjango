@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} Mechanical Keyboard Blog {% endblock %}
 {% block body %}
-<div class="container">] <div class=" text-center mt-5 ">
+<div class="container"> <div class=" text-center mt-5 ">
         <h1>Formularz Kontaktowy</h1>
     </div>
     <div class="row ">
@@ -14,14 +14,19 @@
                             <div class="controls">
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <label>Podaj adres Email</label>
                                         <div class="form-group"> {{ form.formEmail }} </div>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <label>Wpisz wiadomość </label>
                                         <div class="form-group"> {{ form.formMessage }} </div>
+                                        <br>
                                     </div>
-                                    <div class="col-md-12"> <input type="submit" class="btn btn-success btn-send pt-2 btn-block " value="Send Message"> </div> {{ form.captcha }}
+
+                                    <div class="col-md-12"> <input type="submit" class="btn btn-success btn-send pt-2 btn-block " value="Send Message"> {{ form.captcha }} </div>
                                 </div>
                             </div>
                         </form>
@@ -31,3 +36,4 @@
         </div> <!-- /.row-->
     </div>
 </div>
+{% endblock %}
