@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(contactForm)
+admin.site.register(beforeUser)
 
 
 @admin.register(Post)

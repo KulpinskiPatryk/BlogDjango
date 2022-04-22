@@ -2,38 +2,40 @@
 {% load static %}
 {% block title %} Mechanical Keyboard Blog {% endblock %}
 {% block body %}
-<div class="container"> <div class=" text-center mt-5 ">
-        <h1>Formularz Kontaktowy</h1>
-    </div>
-    <div class="row ">
-        <div class="col-lg-7 mx-auto">
-            <div class="card mt-2 mx-auto p-4 bg-light">
-                <div class="card-body bg-light">
-                    <div class="container">
-                        <form id="contact-form" role="form">
-                            <div class="controls">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Podaj adres Email</label>
-                                        <div class="form-group"> {{ form.formEmail }} </div>
+<form method="post" enctype="multipart/form-data">
+    <div class="container"> <div class=" text-center mt-5 ">
+            <h1>Formularz Kontaktowy</h1>
+        {% csrf_token %}
+        </div>
+        <div class="row ">
+            <div class="col-lg-7 mx-auto">
+                <div class="card mt-2 mx-auto p-4 bg-light">
+                    <div class="card-body bg-light">
+                        <div class="container">
+                            <form id="contact-form" role="form">
+                                <div class="controls">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Podaj adres Email</label>
+                                            <div class="form-group"> {{ form.formEmail }} </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label>Wpisz wiadomość </label>
+                                            <div class="form-group"> {{ form.formMessage }} </div>
+                                            <br>
+                                        </div>
+                                        <div class="col-md-12"> <button type="submit" class="btn btn-success btn-send pt-2 btn-block ">Wyślij wiadomość</button> {{ form.captcha }} </div>
                                     </div>
                                 </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Wpisz wiadomość </label>
-                                        <div class="form-group"> {{ form.formMessage }} </div>
-                                        <br>
-                                    </div>
-
-                                    <div class="col-md-12"> <input type="submit" class="btn btn-success btn-send pt-2 btn-block " value="Send Message"> {{ form.captcha }} </div>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </div> <!-- /.8 -->
-        </div> <!-- /.row-->
+                </div> <!-- /.8 -->
+            </div> <!-- /.row-->
+        </div>
     </div>
-</div>
+</form>
 {% endblock %}

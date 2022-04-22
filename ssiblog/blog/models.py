@@ -22,7 +22,7 @@ class beforeUser(models.Model):
 
 
     def __str__(self):
-        return self.Name + ' ' + self.userEmail + ' ' + self.userActive
+        return self.userName + ' ' + self.userEmail + ' ' + str(self.userActive)
 
 
 class Post(models.Model):

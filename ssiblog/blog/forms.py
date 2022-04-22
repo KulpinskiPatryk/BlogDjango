@@ -10,7 +10,9 @@ class CForm(forms.ModelForm):
 
     class Meta:
         model = contactForm
-        fields = ['formEmail', 'formMessage']
+        fields = [
+            'formEmail',
+            'formMessage']
 
 
 class CommentForm(forms.ModelForm):

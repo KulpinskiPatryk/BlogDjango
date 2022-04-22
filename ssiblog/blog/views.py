@@ -3,25 +3,25 @@ from django.shortcuts import redirect, render, HttpResponse, get_object_or_404
 from .models import *
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from datetime import date
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.models import Group
-from django.http import JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core import serializers
 from .forms import CForm, addPostForm, CommentForm
 from django.views.generic import UpdateView, DeleteView
 from taggit.models import Tag
 from ckeditor.widgets import CKEditorWidget
 from django import forms
-from django.core.files.storage import FileSystemStorage
+
+
+def seeContactForms(request):
+    see = contactForm.objects.all()
+    return render(request, "seeContact.html", {'see':see})
 
 
 def ContactForm(request):
     form = CForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CForm(data=request.POST)
+        print("jej")
         if form.is_valid():
             form.save()
             return redirect("/")

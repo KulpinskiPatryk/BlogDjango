@@ -31,6 +31,7 @@
                 <button class="btn btn-outline-info my-2 my-sm-0" onclick="document.location='/Login/'">Zaloguj</button>&nbsp;
               {% endif %}
               {% if user.is_superuser %}
+              <button class="btn btn-outline-dark my-2 my-sm-0" onclick="document.location='/seeContact/'">Wiadomości</button>&nbsp;
               <button class="btn btn-outline-dark my-2 my-sm-0" onclick="document.location='/authorize/'">Autoryzuj Użytkowników</button>&nbsp;
               <button class="btn btn-outline-success my-2 my-sm-0" onclick="document.location='/addPost/'">Dodaj post</button>
               {% endif %}
