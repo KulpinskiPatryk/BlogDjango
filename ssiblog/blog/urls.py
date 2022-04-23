@@ -16,6 +16,7 @@ urlpatterns = [
     path('<slug:id>/', views.showSinglePost, name="singlePost"),
     path('edit/<int:pk>/', views.updatePost.as_view(), name="updatePost"),
     path('delete/<int:pk>/', views.deletePost.as_view(), name="deletePost"),
+    path('deleteUser/<int:pk>/', views.deleteUser.as_view(), name="deleteUser"),
     path('tag/<slug:tag_slug>/', views.index, name="post_tag"),
 
 

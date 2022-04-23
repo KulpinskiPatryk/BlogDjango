@@ -12,6 +12,12 @@ from ckeditor.widgets import CKEditorWidget
 from django import forms
 
 
+class deleteUser(DeleteView):
+    model = beforeUser
+    template_name = 'deleteUser.html'
+    success_url = "/authorize/"
+
+
 def seeContactForms(request):
     see = contactForm.objects.all()
     return render(request, "seeContact.html", {'see':see})
@@ -54,7 +60,7 @@ def Register(request):
         try:
             new_user = beforeUser.objects.create(userName=username, userPassword=password, userEmail=email)
             new_user.save()
-            return redirect(index())
+            return redirect("/")
         except:
             pass
 
