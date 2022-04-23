@@ -18,7 +18,8 @@
                 <td>{{forloop.counter}}.</td>
                 <td>{{u.userName}}</td>
                 <td>{{u.userEmail}}</td>
-                <td><a href="/approve/{{u.id}}/" class="btn btn-danger" onclick="return confirm('Czy na pewno dodać użytkownika')">Dodaj</a></td>
+                <td><a href="/approve/{{u.id}}/" class="btn btn-primary" onclick="return confirm('Czy na pewno dodać użytkownika')">Dodaj</a>&nbsp;
+                <a href="/deleteUser/{{u.pk}}/" class="btn btn-danger">Usuń</a></td>
             {% endfor %}
         </tbody>
     </table>
